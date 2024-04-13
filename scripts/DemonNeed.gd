@@ -11,7 +11,7 @@ const MIN_VAL:int  = -1000
 @export var decay: int = 1
 var next_tick_delta: int = -decay
 
-func tick():
+func tick(_curr_day: int, _curr_time: int):
 	var old_val: int = curr_val
 	set_value(curr_val + next_tick_delta)
 	if curr_val == MIN_VAL:

@@ -4,20 +4,24 @@
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1vslh")
-need_bars = {
-"Bladder": NodePath("NeedBarsBox/BladderNeedBar"),
-"Comfort": NodePath("NeedBarsBox/ComfortNeedBar"),
-"Energy": NodePath("NeedBarsBox/EnergyNeedBar"),
-"Fun": NodePath("NeedBarsBox/FunNeedBar"),
-"Hunger": NodePath("NeedBarsBox/HungerNeedBar"),
-"Hygiene": NodePath("NeedBarsBox/HygieneNeedBar")
-}
+
+[node name="FastFwrdBtn" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+toggle_mode = true
+text = "Fast
+Fwrd"
 
 [node name="PauseBtn" type="Button" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -64.0
+offset_left = -144.0
+offset_right = -80.0
 offset_bottom = 64.0
 grow_horizontal = 0
 toggle_mode = true
@@ -76,4 +80,5 @@ max_value = 1000.0
 step = 1.0
 value = 750.0
 
+[connection signal="pressed" from="FastFwrdBtn" to="." method="_on_fast_frwd_btn_pressed"]
 [connection signal="pressed" from="PauseBtn" to="." method="_on_pause_btn_pressed"]

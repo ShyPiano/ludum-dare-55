@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxr45r0ukiibw"]
+[gd_scene load_steps=7 format=3 uid="uid://cxr45r0ukiibw"]
 
 [ext_resource type="Script" path="res://scripts/Demon.gd" id="1_458ae"]
 [ext_resource type="Texture2D" uid="uid://bl8vphjt2m81k" path="res://icon.svg" id="2_usy3u"]
 [ext_resource type="PackedScene" uid="uid://cd5qy7i6kth1g" path="res://scenes/demon_need.tscn" id="3_23rv5"]
 [ext_resource type="Script" path="res://scripts/DemonAction.gd" id="4_xwqmp"]
+[ext_resource type="PackedScene" uid="uid://bq4a0eoygk0rh" path="res://scenes/ui/action_selector.tscn" id="5_87dcp"]
 
-[node name="Demon" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8x0g0"]
+size = Vector2(128, 128)
+
+[node name="Demon" type="Node2D" node_paths=PackedStringArray("action_templates", "action_selector")]
 script = ExtResource("1_458ae")
+action_templates = NodePath("ActionTemplates")
+action_selector = NodePath("ActionSelector")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_usy3u")
@@ -15,7 +21,7 @@ texture = ExtResource("2_usy3u")
 
 [node name="Hunger" parent="Needs" instance=ExtResource("3_23rv5")]
 need_name = "Hunger"
-decay = 4
+decay = 3
 
 [node name="Energy" parent="Needs" instance=ExtResource("3_23rv5")]
 need_name = "Energy"
@@ -33,7 +39,7 @@ decay = 6
 
 [node name="Fun" parent="Needs" instance=ExtResource("3_23rv5")]
 need_name = "Fun"
-decay = 10
+decay = 5
 
 [node name="ActionTemplates" type="Node" parent="."]
 
@@ -43,13 +49,104 @@ action_name = "Have a Meal"
 needs_effect = {
 "Bladder": -6,
 "Comfort": 1,
-"Hunger": 10
+"Hunger": 25
 }
-action_duration = 5
+action_duration = 30
 
+[node name="Sleep" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Sleep"
+needs_effect = {
+"Comfort": 15,
+"Energy": 20,
+"Fun": -1
+}
+until_time_of_day = 540
+
+[node name="UseToilet" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Use Toilet"
+needs_effect = {
+"Bladder": 50,
+"Hygiene": -5
+}
+need_topped_for_end = "Bladder"
+
+[node name="Shower" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Take a Shower"
+needs_effect = {
+"Bladder": -5,
+"Comfort": 5,
+"Hygiene": 30
+}
+need_topped_for_end = "Hygiene"
+
+[node name="Play" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Play Video Games"
+needs_effect = {
+"Comfort": 15,
+"Fun": 25,
+"Hygiene": -2
+}
+action_duration = 60
+
+[node name="Die" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Die"
+selectable = false
+action_duration = 1
+die_after_action = true
+
+[node name="Collapse" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Collapse"
+selectable = false
+needs_effect = {
+"Comfort": -100,
+"Energy": 10
+}
+action_duration = 50
+
+[node name="BladderFailure" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Bladder Failure"
+selectable = false
+needs_effect = {
+"Bladder": 2000,
+"Comfort": -2000,
+"Fun": -1500,
+"Hygiene": -2000
+}
+need_topped_for_end = "Bladder"
+
+[node name="MouseClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickArea"]
+shape = SubResource("RectangleShape2D_8x0g0")
+
+[node name="ActionSelector" parent="." instance=ExtResource("5_87dcp")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -128.0
+offset_right = 272.0
+offset_bottom = 128.0
+grow_vertical = 2
+
+[connection signal="need_catastrophy" from="Needs/Hunger" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Hunger" to="." method="_on_need_update"]
+[connection signal="need_catastrophy" from="Needs/Energy" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Energy" to="." method="_on_need_update"]
+[connection signal="need_catastrophy" from="Needs/Bladder" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Bladder" to="." method="_on_need_update"]
+[connection signal="need_catastrophy" from="Needs/Hygiene" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Hygiene" to="." method="_on_need_update"]
+[connection signal="need_catastrophy" from="Needs/Comfort" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Comfort" to="." method="_on_need_update"]
+[connection signal="need_catastrophy" from="Needs/Fun" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Fun" to="." method="_on_need_update"]
+[connection signal="input_event" from="MouseClickArea" to="." method="_on_mouse_click_area_input_event"]
+[connection signal="item_clicked" from="ActionSelector" to="." method="_on_action_selector_item_clicked"]
