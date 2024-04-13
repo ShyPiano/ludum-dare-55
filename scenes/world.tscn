@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfoypma2ump0p"]
+
+[ext_resource type="Script" path="res://scripts/World.gd" id="1_1ap2o"]
+[ext_resource type="PackedScene" uid="uid://cxr45r0ukiibw" path="res://scenes/demon.tscn" id="2_6t0hy"]
+[ext_resource type="PackedScene" uid="uid://bh4d73stc2rt" path="res://scenes/ui/hud.tscn" id="3_oqr52"]
+
+[node name="World" type="Node" node_paths=PackedStringArray("demon", "ticker", "hud")]
+script = ExtResource("1_1ap2o")
+demon = NodePath("Demon")
+ticker = NodePath("Ticker")
+hud = NodePath("HUD")
+
+[node name="Demon" parent="." instance=ExtResource("2_6t0hy")]
+position = Vector2(368, 384)
+
+[node name="Ticker" type="Timer" parent="."]
+autostart = true
+
+[node name="HUD" parent="." instance=ExtResource("3_oqr52")]
+
+[connection signal="need_update" from="Demon" to="." method="_on_demon_need_update"]
+[connection signal="timeout" from="Ticker" to="." method="_on_ticker_timeout"]
+[connection signal="pause_pressed" from="HUD" to="." method="_on_pause_pressed"]

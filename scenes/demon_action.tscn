@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://do5kg1fbtty5g"]
+
+[ext_resource type="Script" path="res://scripts/DemonAction.gd" id="1_vo2i8"]
+
+[node name="DemonAction" type="Node"]
+script = ExtResource("1_vo2i8")

@@ -1,0 +1,30 @@
+# LUDUM DARE 55
+## Virtual Pet game
+- take care of a little demon!
+  - Sims-like needs:
+    - Hunger
+    - Energy
+    - Confort
+    - Fun
+    - Bladder
+    - Hygiene
+    - no Social(?) (demons are lonely creatures)
+    - no Room(?)
+  - have them learn skills:
+    - Scaryness
+    - Possession
+    - Future vision
+    - Manipulation
+    - Barganing
+- demon gets summoned from time to time
+  - each summoning has a list of requeriments
+    - certain skill levels
+  - failing (a certain amount of) summonings will lose you the game
+  - demon must be in a good mood to do a good job
+  - gain currency as a result of good pperformance
+    - better Barganing gets you more currency!
+  - player gets notified of imminent summoning sometime before they are summoned
+- buy new stuff for your demon!
+  - successful summonings give you currency (souls)
+  - better objects allow faster skill building and need fulfilment
+  - some are decorative only?

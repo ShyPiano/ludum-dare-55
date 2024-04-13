@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxr45r0ukiibw"]
+
+[ext_resource type="Script" path="res://scripts/Demon.gd" id="1_458ae"]
+[ext_resource type="Texture2D" uid="uid://bl8vphjt2m81k" path="res://icon.svg" id="2_usy3u"]
+[ext_resource type="PackedScene" uid="uid://cd5qy7i6kth1g" path="res://scenes/demon_need.tscn" id="3_23rv5"]
+[ext_resource type="Script" path="res://scripts/DemonAction.gd" id="4_xwqmp"]
+
+[node name="Demon" type="Node2D"]
+script = ExtResource("1_458ae")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_usy3u")
+
+[node name="Needs" type="Node" parent="."]
+
+[node name="Hunger" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Hunger"
+decay = 4
+
+[node name="Energy" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Energy"
+
+[node name="Bladder" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Bladder"
+decay = 4
+
+[node name="Hygiene" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Hygiene"
+
+[node name="Comfort" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Comfort"
+decay = 6
+
+[node name="Fun" parent="Needs" instance=ExtResource("3_23rv5")]
+need_name = "Fun"
+decay = 10
+
+[node name="ActionTemplates" type="Node" parent="."]
+
+[node name="HaveMeal" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Have a Meal"
+needs_effect = {
+"Bladder": -6,
+"Comfort": 1,
+"Hunger": 10
+}
+action_duration = 5
+
+[connection signal="need_update" from="Needs/Hunger" to="." method="_on_need_update"]
+[connection signal="need_update" from="Needs/Energy" to="." method="_on_need_update"]
+[connection signal="need_update" from="Needs/Bladder" to="." method="_on_need_update"]
+[connection signal="need_update" from="Needs/Hygiene" to="." method="_on_need_update"]
+[connection signal="need_update" from="Needs/Comfort" to="." method="_on_need_update"]
+[connection signal="need_update" from="Needs/Fun" to="." method="_on_need_update"]

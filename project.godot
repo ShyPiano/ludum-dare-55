@@ -11,8 +11,16 @@ config_version=5
 [application]
 
 config/name="ludum-dare-55"
+run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=940
+window/size/resizable=false
+window/handheld/orientation=5
 
 [rendering]
 
