@@ -20,6 +20,6 @@ autostart = true
 
 [connection signal="demon_died" from="Demon" to="." method="_on_demon_died"]
 [connection signal="need_update" from="Demon" to="." method="_on_demon_need_update"]
-[connection signal="timeout" from="Ticker" to="." method="_on_ticker_timeout"]
+[connection signal="timeout" from="Ticker" to="." method="tick"]
 [connection signal="fast_frwd_pressed" from="HUD" to="." method="_on_fast_fwrd_pressed"]
 [connection signal="pause_pressed" from="HUD" to="." method="_on_pause_pressed"]

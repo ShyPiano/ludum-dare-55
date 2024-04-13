@@ -1,13 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxr45r0ukiibw"]
+[gd_scene load_steps=6 format=3 uid="uid://cxr45r0ukiibw"]
 
 [ext_resource type="Script" path="res://scripts/Demon.gd" id="1_458ae"]
 [ext_resource type="Texture2D" uid="uid://bl8vphjt2m81k" path="res://icon.svg" id="2_usy3u"]
 [ext_resource type="PackedScene" uid="uid://cd5qy7i6kth1g" path="res://scenes/demon_need.tscn" id="3_23rv5"]
 [ext_resource type="Script" path="res://scripts/DemonAction.gd" id="4_xwqmp"]
 [ext_resource type="PackedScene" uid="uid://bq4a0eoygk0rh" path="res://scenes/ui/action_selector.tscn" id="5_87dcp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8x0g0"]
-size = Vector2(128, 128)
 
 [node name="Demon" type="Node2D" node_paths=PackedStringArray("action_templates", "action_selector")]
 script = ExtResource("1_458ae")
@@ -16,6 +13,16 @@ action_selector = NodePath("ActionSelector")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_usy3u")
+
+[node name="ActionSelector" parent="." instance=ExtResource("5_87dcp")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -128.0
+offset_right = 272.0
+offset_bottom = 128.0
+grow_vertical = 2
 
 [node name="Needs" type="Node" parent="."]
 
@@ -59,7 +66,8 @@ action_name = "Sleep"
 needs_effect = {
 "Comfort": 15,
 "Energy": 20,
-"Fun": -1
+"Fun": -1,
+"Hunger": -1
 }
 until_time_of_day = 540
 
@@ -121,21 +129,13 @@ needs_effect = {
 }
 need_topped_for_end = "Bladder"
 
-[node name="MouseClickArea" type="Area2D" parent="."]
+[node name="Summoned" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Summoned"
+selectable = false
+end_summon_after_action = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickArea"]
-shape = SubResource("RectangleShape2D_8x0g0")
-
-[node name="ActionSelector" parent="." instance=ExtResource("5_87dcp")]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_top = -128.0
-offset_right = 272.0
-offset_bottom = 128.0
-grow_vertical = 2
-
+[connection signal="item_clicked" from="ActionSelector" to="." method="_on_action_selector_item_clicked"]
 [connection signal="need_catastrophy" from="Needs/Hunger" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Hunger" to="." method="_on_need_update"]
 [connection signal="need_catastrophy" from="Needs/Energy" to="." method="_on_need_catastrophy"]
@@ -148,5 +148,3 @@ grow_vertical = 2
 [connection signal="need_update" from="Needs/Comfort" to="." method="_on_need_update"]
 [connection signal="need_catastrophy" from="Needs/Fun" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Fun" to="." method="_on_need_update"]
-[connection signal="input_event" from="MouseClickArea" to="." method="_on_mouse_click_area_input_event"]
-[connection signal="item_clicked" from="ActionSelector" to="." method="_on_action_selector_item_clicked"]

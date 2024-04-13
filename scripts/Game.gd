@@ -1,11 +1,11 @@
 extends Node
 
-const game_over_scene = preload("res://scenes/game_over.tscn")
-const world_scene = preload("res://scenes/world.tscn")
+const game_over_scene: PackedScene = preload("res://scenes/ui/game_over.tscn")
+const world_scene: PackedScene = preload("res://scenes/world.tscn")
 
 @onready var world: Node = $World
 
-func new_game(demon_name: String = ""):
+func new_game(_demon_name: String = ""):
 	clear()
 	var w_node: Node = world_scene.instantiate()
 	add_child(w_node)

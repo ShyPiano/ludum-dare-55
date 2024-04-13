@@ -1,7 +1,7 @@
 class_name DemonAction
 extends Node
 
-signal action_end
+signal action_end(end_summon: bool, die: bool)
 
 @export var action_name: String
 @export var selectable: bool = true
@@ -18,6 +18,7 @@ signal action_end
 @export var need_topped_for_end: String = ""
 
 @export var die_after_action: bool = false
+@export var end_summon_after_action: bool = false
 
 func tick(_curr_day: int, curr_time: int, needs: Dictionary):
 	if curr_time == until_time_of_day:
@@ -32,4 +33,4 @@ func tick(_curr_day: int, curr_time: int, needs: Dictionary):
 		
 
 func end_action():
-	action_end.emit(die_after_action)
+	action_end.emit(end_summon_after_action, die_after_action)
