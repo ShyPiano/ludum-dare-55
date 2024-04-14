@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://lqa11avgi2x7"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_3cca2"]
+[ext_resource type="Texture2D" uid="uid://duhoa820al61p" path="res://assets/gfx/demon/demon_noaction_happy1.png" id="2_io8el"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_3cca2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(368, 544)
+texture = ExtResource("2_io8el")
+
+[node name="TitleLbl" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -184.0
+offset_top = 64.0
+offset_right = 183.0
+offset_bottom = 152.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Tonidachi"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = 76.0
+offset_right = 96.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -49.0
+offset_right = 232.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "By ShyPiano
+Made in a weekend for Ludum Dare 55
+using the Godot Engine"
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

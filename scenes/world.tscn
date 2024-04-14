@@ -4,22 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://cxr45r0ukiibw" path="res://scenes/demon.tscn" id="2_6t0hy"]
 [ext_resource type="PackedScene" uid="uid://bh4d73stc2rt" path="res://scenes/ui/hud.tscn" id="3_oqr52"]
 
-[node name="World" type="Node" node_paths=PackedStringArray("demon", "ticker", "hud")]
+[node name="World" type="Node"]
 script = ExtResource("1_1ap2o")
-demon = NodePath("Demon")
-ticker = NodePath("Ticker")
-hud = NodePath("HUD")
 
 [node name="Demon" parent="." instance=ExtResource("2_6t0hy")]
 position = Vector2(368, 384)
 
 [node name="Ticker" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="HUD" parent="." instance=ExtResource("3_oqr52")]
 
 [connection signal="demon_died" from="Demon" to="." method="_on_demon_died"]
 [connection signal="need_update" from="Demon" to="." method="_on_demon_need_update"]
+[connection signal="skill_update" from="Demon" to="." method="_on_demon_skill_update"]
+[connection signal="summoning" from="Demon" to="." method="_on_demon_summoning"]
 [connection signal="timeout" from="Ticker" to="." method="tick"]
 [connection signal="fast_frwd_pressed" from="HUD" to="." method="_on_fast_fwrd_pressed"]
 [connection signal="pause_pressed" from="HUD" to="." method="_on_pause_pressed"]

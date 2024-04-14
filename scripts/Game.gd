@@ -3,21 +3,28 @@ extends Node
 const game_over_scene: PackedScene = preload("res://scenes/ui/game_over.tscn")
 const world_scene: PackedScene = preload("res://scenes/world.tscn")
 
-@onready var world: Node = $World
+@onready var main_menu: Node = $MainMenu
+var game_over: GameOver = null
+var world: Node = null
+@onready var bg: Node = $Background
 
 func new_game(_demon_name: String = ""):
 	clear()
-	var w_node: Node = world_scene.instantiate()
-	add_child(w_node)
-	w_node.game_end.connect(game_over)
+	world = world_scene.instantiate()
+	add_child(world)
+	world.game_end.connect(show_game_over)
 
-func game_over(days_lasted: int):
+func show_game_over(days_lasted: int):
 	clear()
-	var go_node: GameOver = (game_over_scene.instantiate() as GameOver)
-	add_child(go_node)
-	go_node.update_days(days_lasted)
-	go_node.retry.connect(new_game)
+	game_over = (game_over_scene.instantiate() as GameOver)
+	add_child(game_over)
+	game_over.update_days(days_lasted)
+	game_over.retry.connect(new_game)
 
 func clear():
-	for child in get_children():
-		child.queue_free()
+	if main_menu != null:
+		main_menu.queue_free()
+	if world != null:
+		world.queue_free()
+	if game_over != null:
+		game_over.queue_free()

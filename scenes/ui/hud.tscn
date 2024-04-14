@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh4d73stc2rt"]
+[gd_scene load_steps=3 format=3 uid="uid://bh4d73stc2rt"]
 
 [ext_resource type="Script" path="res://scripts/ui/Hud.gd" id="1_1vslh"]
+[ext_resource type="AudioStream" uid="uid://dx56n5hiyqc0x" path="res://assets/sounds/summon_imminent.mp3" id="2_v15xu"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_1vslh")
@@ -9,89 +10,196 @@ script = ExtResource("1_1vslh")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -72.0
-offset_top = 64.0
-offset_right = -8.0
+offset_left = -80.0
+offset_top = 88.0
+offset_right = -16.0
 offset_bottom = 128.0
 grow_horizontal = 0
 toggle_mode = true
-text = "Fast
-Fwrd"
+text = ">>"
 
 [node name="PauseBtn" type="Button" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -152.0
-offset_top = 64.0
-offset_right = -88.0
+offset_left = -160.0
+offset_top = 88.0
+offset_right = -96.0
 offset_bottom = 128.0
 grow_horizontal = 0
 toggle_mode = true
-text = "Pause"
+text = "||"
 
-[node name="NeedBarsBox" type="VBoxContainer" parent="."]
-anchors_preset = -1
+[node name="BarsPanel" type="Panel" parent="."]
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -92.0
-offset_bottom = -3.0
+offset_top = -236.0
 grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NeedBarsBox" type="VBoxContainer" parent="BarsPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -236.0
+offset_right = 336.0
 grow_vertical = 0
 alignment = 1
 
-[node name="HungerNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="HungerNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
-min_value = -1000.0
-max_value = 1000.0
-step = 1.0
-value = 750.0
+text = "Hunger"
+vertical_alignment = 1
 
-[node name="EnergyNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="HungerNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
 min_value = -1000.0
 max_value = 1000.0
 step = 1.0
 value = 750.0
+show_percentage = false
 
-[node name="BladderNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="EnergyNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
-min_value = -1000.0
-max_value = 1000.0
-step = 1.0
-value = 750.0
+text = "Energy"
+vertical_alignment = 1
 
-[node name="HygieneNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="EnergyNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
 min_value = -1000.0
 max_value = 1000.0
 step = 1.0
 value = 750.0
+show_percentage = false
 
-[node name="ComfortNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="BladderNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
-min_value = -1000.0
-max_value = 1000.0
-step = 1.0
-value = 750.0
+text = "Bladder"
+vertical_alignment = 1
 
-[node name="FunNeedBar" type="ProgressBar" parent="NeedBarsBox"]
+[node name="BladderNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
 layout_mode = 2
 min_value = -1000.0
 max_value = 1000.0
 step = 1.0
 value = 750.0
+show_percentage = false
+
+[node name="HygieneNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+text = "Hygiene"
+vertical_alignment = 1
+
+[node name="HygieneNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+min_value = -1000.0
+max_value = 1000.0
+step = 1.0
+value = 750.0
+show_percentage = false
+
+[node name="ComfortNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+text = "Comfort"
+vertical_alignment = 1
+
+[node name="ComfortNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+min_value = -1000.0
+max_value = 1000.0
+step = 1.0
+value = 750.0
+show_percentage = false
+
+[node name="FunNeedLbl" type="Label" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+text = "Fun"
+vertical_alignment = 1
+
+[node name="FunNeedBar" type="ProgressBar" parent="BarsPanel/NeedBarsBox"]
+layout_mode = 2
+min_value = -1000.0
+max_value = 1000.0
+step = 1.0
+value = 750.0
+show_percentage = false
+
+[node name="SkillBarsBox" type="VBoxContainer" parent="BarsPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -336.0
+offset_top = -236.0
+offset_right = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+
+[node name="MetamorphosisSkillLbl" type="Label" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+text = "Metamorphosis LVL 01"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MetamorphosisSkillBar" type="ProgressBar" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+max_value = 60.0
+step = 1.0
+show_percentage = false
+
+[node name="PossessionSkillLbl" type="Label" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+text = "Possession LVL 01"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PossessionSkillBar" type="ProgressBar" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+max_value = 60.0
+step = 1.0
+show_percentage = false
+
+[node name="PrecognitionSkillLbl" type="Label" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+text = "Precognition LVL 01"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PrecognitionSkillBar" type="ProgressBar" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+max_value = 60.0
+step = 1.0
+show_percentage = false
+
+[node name="BargainingSkillLbl" type="Label" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+text = "Bargaining LVL 01"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BargainingSkillBar" type="ProgressBar" parent="BarsPanel/SkillBarsBox"]
+layout_mode = 2
+max_value = 60.0
+step = 1.0
+show_percentage = false
 
 [node name="Clock" type="Label" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -152.0
-offset_top = 32.0
-offset_right = -8.0
-offset_bottom = 55.0
+offset_left = -160.0
+offset_top = 48.0
+offset_right = -16.0
+offset_bottom = 82.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
 text = "12:34"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -100,14 +208,140 @@ vertical_alignment = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -152.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = 31.0
+offset_left = -160.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 50.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
 text = "Day 1"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="SummonPanelMargin" type="MarginContainer" parent="."]
+offset_right = 544.0
+offset_bottom = 136.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="SummonPanel" type="PanelContainer" parent="SummonPanelMargin"]
+layout_mode = 2
+
+[node name="SummonInfoBox" type="HBoxContainer" parent="SummonPanelMargin/SummonPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleMargin" type="MarginContainer" parent="SummonPanelMargin/SummonPanel/SummonInfoBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="SummonTitleBox" type="VBoxContainer" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/TitleMargin"]
+layout_mode = 2
+
+[node name="TitleLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/TitleMargin/SummonTitleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "SUMMON EVENT
+IMMINENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="FluffLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/TitleMargin/SummonTitleBox"]
+layout_mode = 2
+text = "slated for"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DateLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/TitleMargin/SummonTitleBox"]
+layout_mode = 2
+text = "Day X YY:ZZ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FluffMargin" type="MarginContainer" parent="SummonPanelMargin/SummonPanel/SummonInfoBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="FluffLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/FluffMargin"]
+layout_mode = 2
+text = "Be in a good mood
+for our client!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RequirementsMargin" type="MarginContainer" parent="SummonPanelMargin/SummonPanel/SummonInfoBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="SkillsBox" type="VBoxContainer" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/RequirementsMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="MetamorphosisLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/RequirementsMargin/SkillsBox"]
+layout_mode = 2
+text = "Metamorphosis LVL X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PossessionLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/RequirementsMargin/SkillsBox"]
+layout_mode = 2
+text = "Possession LVL X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PrecognitionLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/RequirementsMargin/SkillsBox"]
+layout_mode = 2
+text = "Precognition LVL X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BargainingLbl" type="Label" parent="SummonPanelMargin/SummonPanel/SummonInfoBox/RequirementsMargin/SkillsBox"]
+layout_mode = 2
+text = "Bargaining LVL X"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SummonSuccessPanelMargin" type="MarginContainer" parent="."]
+offset_right = 544.0
+offset_bottom = 136.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="SummonSuccessPanel" type="PanelContainer" parent="SummonSuccessPanelMargin"]
+layout_mode = 2
+
+[node name="SummonSuccessTitleBox" type="VBoxContainer" parent="SummonSuccessPanelMargin/SummonSuccessPanel"]
+layout_mode = 2
+
+[node name="TitleLbl" type="Label" parent="SummonSuccessPanelMargin/SummonSuccessPanel/SummonSuccessTitleBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "SUMMON EVENT
+ONGOING"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="FluffLbl" type="Label" parent="SummonSuccessPanelMargin/SummonSuccessPanel/SummonSuccessTitleBox"]
+layout_mode = 2
+text = "You have met the requirements!
+Be ready to deal with summoning sickness."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SummonAlertSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_v15xu")
+volume_db = -5.0
 
 [connection signal="pressed" from="FastFwrdBtn" to="." method="_on_fast_frwd_btn_pressed"]
 [connection signal="pressed" from="PauseBtn" to="." method="_on_pause_btn_pressed"]

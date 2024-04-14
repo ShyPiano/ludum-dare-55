@@ -1,18 +1,151 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxr45r0ukiibw"]
+[gd_scene load_steps=22 format=3 uid="uid://cxr45r0ukiibw"]
 
 [ext_resource type="Script" path="res://scripts/Demon.gd" id="1_458ae"]
-[ext_resource type="Texture2D" uid="uid://bl8vphjt2m81k" path="res://icon.svg" id="2_usy3u"]
+[ext_resource type="Texture2D" uid="uid://bwtlg42trfa77" path="res://assets/gfx/demon/demon_eat1.png" id="2_dx3lw"]
+[ext_resource type="Texture2D" uid="uid://duhoa820al61p" path="res://assets/gfx/demon/demon_noaction_happy1.png" id="2_txvhw"]
+[ext_resource type="Texture2D" uid="uid://jq5p4g60cb67" path="res://assets/gfx/demon/demon_bladderfail1.png" id="2_ycetc"]
+[ext_resource type="Texture2D" uid="uid://chayfni5e60ju" path="res://assets/gfx/demon/demon_noaction_sad1.png" id="3_7poc1"]
+[ext_resource type="Texture2D" uid="uid://cf27fcgffod31" path="res://assets/gfx/demon/demon_collapse1.png" id="3_7x84u"]
 [ext_resource type="PackedScene" uid="uid://cd5qy7i6kth1g" path="res://scenes/demon_need.tscn" id="3_23rv5"]
+[ext_resource type="Texture2D" uid="uid://by544li11ulyg" path="res://assets/gfx/demon/demon_dead1.png" id="4_cagfd"]
+[ext_resource type="Texture2D" uid="uid://dw16iytl8bpqg" path="res://assets/gfx/demon/demon_train1.png" id="4_epw4s"]
+[ext_resource type="Texture2D" uid="uid://cfwbpmye42gb6" path="res://assets/gfx/demon/demon_play1.png" id="4_hpeu1"]
 [ext_resource type="Script" path="res://scripts/DemonAction.gd" id="4_xwqmp"]
 [ext_resource type="PackedScene" uid="uid://bq4a0eoygk0rh" path="res://scenes/ui/action_selector.tscn" id="5_87dcp"]
+[ext_resource type="Script" path="res://scripts/DemonSkill.gd" id="5_hil86"]
+[ext_resource type="Texture2D" uid="uid://dhouefxaj1ann" path="res://assets/gfx/demon/demon_shower1.png" id="6_ba28m"]
+[ext_resource type="Texture2D" uid="uid://bc56onc6omf67" path="res://assets/gfx/demon/demon_toilet1.png" id="7_fjxjo"]
+[ext_resource type="Texture2D" uid="uid://md4bvth2jux0" path="res://assets/gfx/demon/demon_sleep1.png" id="8_jxfyd"]
+[ext_resource type="Texture2D" uid="uid://de8dxl0hhkrnk" path="res://assets/gfx/demon/demon_summon.png" id="9_afd7t"]
+[ext_resource type="Script" path="res://scripts/DemonThought.gd" id="14_21x2n"]
+[ext_resource type="Texture2D" uid="uid://db53175518gr1" path="res://assets/gfx/demon/demon_thought.png" id="14_bc55b"]
+[ext_resource type="AudioStream" uid="uid://7luxt0qghqq5" path="res://assets/sounds/catastrophe.mp3" id="20_3kmr0"]
 
-[node name="Demon" type="Node2D" node_paths=PackedStringArray("action_templates", "action_selector")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_eloup"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ycetc")
+}],
+"loop": true,
+"name": &"bladderfail",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7x84u")
+}],
+"loop": true,
+"name": &"collapse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cagfd")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dx3lw")
+}],
+"loop": true,
+"name": &"eat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_txvhw")
+}],
+"loop": true,
+"name": &"noaction_happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7poc1")
+}],
+"loop": true,
+"name": &"noaction_sad",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hpeu1")
+}],
+"loop": true,
+"name": &"play",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ba28m")
+}],
+"loop": true,
+"name": &"shower",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_jxfyd")
+}],
+"loop": true,
+"name": &"sleep",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_afd7t")
+}],
+"loop": true,
+"name": &"summon",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fjxjo")
+}],
+"loop": true,
+"name": &"toilet",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_epw4s")
+}],
+"loop": true,
+"name": &"train",
+"speed": 5.0
+}]
+
+[node name="Demon" type="Node2D"]
 script = ExtResource("1_458ae")
-action_templates = NodePath("ActionTemplates")
-action_selector = NodePath("ActionSelector")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_usy3u")
+[node name="DemonSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 160)
+sprite_frames = SubResource("SpriteFrames_eloup")
+animation = &"noaction_happy"
+
+[node name="DemonThought" type="Sprite2D" parent="."]
+position = Vector2(64, 184)
+texture = ExtResource("14_bc55b")
+script = ExtResource("14_21x2n")
+
+[node name="Timer" type="Timer" parent="DemonThought"]
+one_shot = true
+
+[node name="Label" type="Label" parent="DemonThought"]
+offset_left = -392.0
+offset_top = -208.0
+offset_right = -208.0
+offset_bottom = -112.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ActionSelector" parent="." instance=ExtResource("5_87dcp")]
 anchors_preset = 4
@@ -20,7 +153,7 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 96.0
 offset_top = -128.0
-offset_right = 272.0
+offset_right = 320.0
 offset_bottom = 128.0
 grow_vertical = 2
 
@@ -35,7 +168,7 @@ need_name = "Energy"
 
 [node name="Bladder" parent="Needs" instance=ExtResource("3_23rv5")]
 need_name = "Bladder"
-decay = 4
+decay = 3
 
 [node name="Hygiene" parent="Needs" instance=ExtResource("3_23rv5")]
 need_name = "Hygiene"
@@ -48,6 +181,24 @@ decay = 6
 need_name = "Fun"
 decay = 5
 
+[node name="Skills" type="Node" parent="."]
+
+[node name="Metamorphosis" type="Node" parent="Skills"]
+script = ExtResource("5_hil86")
+skill_name = "Metamorphosis"
+
+[node name="Possession" type="Node" parent="Skills"]
+script = ExtResource("5_hil86")
+skill_name = "Possession"
+
+[node name="Precognition" type="Node" parent="Skills"]
+script = ExtResource("5_hil86")
+skill_name = "Precognition"
+
+[node name="Bargaining" type="Node" parent="Skills"]
+script = ExtResource("5_hil86")
+skill_name = "Bargaining"
+
 [node name="ActionTemplates" type="Node" parent="."]
 
 [node name="HaveMeal" type="Node" parent="ActionTemplates"]
@@ -56,9 +207,15 @@ action_name = "Have a Meal"
 needs_effect = {
 "Bladder": -6,
 "Comfort": 1,
-"Hunger": 25
+"Hunger": 20
 }
-action_duration = 30
+skills_effect = {}
+min_needs = {
+"Bladder": -900,
+"Energy": -900
+}
+action_duration = 60
+animation_name = &"eat"
 
 [node name="Sleep" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
@@ -69,7 +226,13 @@ needs_effect = {
 "Fun": -1,
 "Hunger": -1
 }
+skills_effect = {}
+min_needs = {
+"Bladder": -900,
+"Hunger": -900
+}
 until_time_of_day = 540
+animation_name = &"sleep"
 
 [node name="UseToilet" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
@@ -78,7 +241,12 @@ needs_effect = {
 "Bladder": 50,
 "Hygiene": -5
 }
-need_topped_for_end = "Bladder"
+skills_effect = {}
+min_needs = {
+"Hunger": -900
+}
+until_need_topped = "Bladder"
+animation_name = &"toilet"
 
 [node name="Shower" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
@@ -88,7 +256,14 @@ needs_effect = {
 "Comfort": 5,
 "Hygiene": 30
 }
-need_topped_for_end = "Hygiene"
+skills_effect = {}
+min_needs = {
+"Bladder": -900,
+"Energy": -900,
+"Hunger": -900
+}
+until_need_topped = "Hygiene"
+animation_name = &"shower"
 
 [node name="Play" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
@@ -98,43 +273,147 @@ needs_effect = {
 "Fun": 25,
 "Hygiene": -2
 }
+skills_effect = {}
+min_needs = {
+"Bladder": -750,
+"Energy": -750,
+"Hunger": -750
+}
 action_duration = 60
+animation_name = &"play"
 
-[node name="Die" type="Node" parent="ActionTemplates"]
+[node name="TrainMetamorphosis" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
-action_name = "Die"
-selectable = false
-action_duration = 1
-die_after_action = true
-
-[node name="Collapse" type="Node" parent="ActionTemplates"]
-script = ExtResource("4_xwqmp")
-action_name = "Collapse"
-selectable = false
-needs_effect = {
-"Comfort": -100,
-"Energy": 10
+action_name = "Train Metamorphosis"
+needs_effect = {}
+skills_effect = {
+"Metamorphosis": 1
 }
-action_duration = 50
-
-[node name="BladderFailure" type="Node" parent="ActionTemplates"]
-script = ExtResource("4_xwqmp")
-action_name = "Bladder Failure"
-selectable = false
-needs_effect = {
-"Bladder": 2000,
-"Comfort": -2000,
-"Fun": -1500,
-"Hygiene": -2000
+min_needs = {
+"Bladder": 0,
+"Comfort": -250,
+"Energy": 0,
+"Fun": 0,
+"Hunger": 0,
+"Hygiene": -250,
+"Mood": 0
 }
-need_topped_for_end = "Bladder"
+action_duration = 60
+animation_name = &"train"
+
+[node name="TrainPossession" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Train Possession"
+needs_effect = {}
+skills_effect = {
+"Possession": 1
+}
+min_needs = {
+"Bladder": 0,
+"Comfort": -250,
+"Energy": 0,
+"Fun": 0,
+"Hunger": 0,
+"Hygiene": -250,
+"Mood": 0
+}
+action_duration = 60
+animation_name = &"train"
+
+[node name="TrainPrecognition" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Train Precognition"
+needs_effect = {}
+skills_effect = {
+"Precognition": 1
+}
+min_needs = {
+"Bladder": 0,
+"Comfort": -250,
+"Energy": 0,
+"Fun": 0,
+"Hunger": 0,
+"Hygiene": -250,
+"Mood": 0
+}
+action_duration = 60
+animation_name = &"train"
+
+[node name="TrainBargaining" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Train Bargaining"
+needs_effect = {}
+skills_effect = {
+"Bargaining": 1
+}
+min_needs = {
+"Bladder": 0,
+"Comfort": -250,
+"Energy": 0,
+"Fun": 0,
+"Hunger": 0,
+"Hygiene": -250,
+"Mood": 0
+}
+action_duration = 60
+animation_name = &"train"
 
 [node name="Summoned" type="Node" parent="ActionTemplates"]
 script = ExtResource("4_xwqmp")
 action_name = "Summoned"
 selectable = false
+catastrophe = true
+skills_effect = {}
+min_needs = {}
 end_summon_after_action = true
+animation_name = &"summon"
 
+[node name="Collapse" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Collapse"
+selectable = false
+catastrophe = true
+needs_effect = {
+"Comfort": -100,
+"Energy": 10
+}
+skills_effect = {}
+min_needs = {}
+action_duration = 50
+animation_name = &"collapse"
+
+[node name="BladderFailure" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Bladder Failure"
+selectable = false
+catastrophe = true
+needs_effect = {
+"Bladder": 200,
+"Comfort": -2000,
+"Fun": -1500,
+"Hygiene": -2000
+}
+skills_effect = {}
+min_needs = {}
+until_need_topped = "Bladder"
+animation_name = &"bladderfail"
+
+[node name="Die" type="Node" parent="ActionTemplates"]
+script = ExtResource("4_xwqmp")
+action_name = "Die"
+selectable = false
+catastrophe = true
+skills_effect = {}
+min_needs = {}
+action_duration = 20
+die_after_action = true
+animation_name = &"dead"
+
+[node name="CatastropheSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_3kmr0")
+volume_db = -5.0
+
+[connection signal="timeout" from="DemonThought/Timer" to="DemonThought" method="_on_timer_timeout"]
 [connection signal="item_clicked" from="ActionSelector" to="." method="_on_action_selector_item_clicked"]
 [connection signal="need_catastrophy" from="Needs/Hunger" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Hunger" to="." method="_on_need_update"]
@@ -148,3 +427,7 @@ end_summon_after_action = true
 [connection signal="need_update" from="Needs/Comfort" to="." method="_on_need_update"]
 [connection signal="need_catastrophy" from="Needs/Fun" to="." method="_on_need_catastrophy"]
 [connection signal="need_update" from="Needs/Fun" to="." method="_on_need_update"]
+[connection signal="skill_update" from="Skills/Metamorphosis" to="." method="_on_skill_update"]
+[connection signal="skill_update" from="Skills/Possession" to="." method="_on_skill_update"]
+[connection signal="skill_update" from="Skills/Precognition" to="." method="_on_skill_update"]
+[connection signal="skill_update" from="Skills/Bargaining" to="." method="_on_skill_update"]

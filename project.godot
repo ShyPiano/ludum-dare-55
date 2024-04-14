@@ -10,7 +10,11 @@ config_version=5
 
 [application]
 
-config/name="ludum-dare-55"
+config/name="Tonidachi"
+config/description="Take care of your demon friend!
+Have him eat, sleep, study and play!
+And make sure he's ready to face the challenges of being summoned!"
+config/version="1.0"
 run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
